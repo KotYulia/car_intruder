@@ -6,13 +6,15 @@ const morgan = require('morgan'); // Log HTTP requests (Method, status, endpoint
 const statusCodes = require('http').STATUS_CODES; // List of status codes
 
 const rootRouter = require('./routes'); // All our routes are here
-
+const bodyParser = require('body-parser');
 const config = require('../config');
 
 const app = express();
 
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const corsOptions = {
   origin: '*',
@@ -36,7 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 function listen() {
-  const server = app.listen(config.httpServer.port, config.httpServer.address, () => {
+  const server = app.listen(config.server.httpServer.port, config.server.httpServer.address, () => {
     console.log(`Server is listening at [${server.address().address}]:${server.address().port}`);
   });
 }
