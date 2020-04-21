@@ -5,8 +5,8 @@ const cors = require('cors'); // CORS support
 const morgan = require('morgan'); // Log HTTP requests (Method, status, endpoint, serve time, etc...)
 const statusCodes = require('http').STATUS_CODES; // List of status codes
 
-const rootRouter = require('./routes'); // All our routes are here
 const bodyParser = require('body-parser');
+const rootRouter = require('./routes'); // All our routes are here
 const config = require('../config');
 
 const app = express();
@@ -14,7 +14,7 @@ const app = express();
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: '*',

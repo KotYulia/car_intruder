@@ -8,21 +8,19 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, '../public/images/');
+    cb(null, `${process.cwd()}/src/public/uploads`);
   },
   filename(req, file, cb) {
     cb(null, Date.now() + file.originalname);
   },
 });
-
-const upload = multer({ storage });
-
 app.use(express.static(path.join(__dirname, 'public')));
+// eslint-disable-next-line object-shorthand
+const upload = multer({ storage: storage });
 
-router.get('/api', (reg, res) => {
-  res.send('Welcome to API');
-});
-
-router.post('/articles', upload.single('wallpaper'), articleController.create);
+router.get('/', articleController.list);
+router.post('/articles', upload.single('photo'), articleController.create);
+router.post('/articles/:articleId', upload.single('photo'), articleController.update);
+router.delete('/articles/:articleId', articleController.delete);
 
 module.exports = router;
