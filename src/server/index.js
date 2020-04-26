@@ -5,14 +5,16 @@ const cors = require('cors'); // CORS support
 const morgan = require('morgan'); // Log HTTP requests (Method, status, endpoint, serve time, etc...)
 const statusCodes = require('http').STATUS_CODES; // List of status codes
 
+const bodyParser = require('body-parser');
 const rootRouter = require('./routes'); // All our routes are here
-
 const config = require('../config');
 
 const app = express();
 
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: '*',
@@ -36,7 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 function listen() {
-  const server = app.listen(config.httpServer.port, config.httpServer.address, () => {
+  const server = app.listen(config.server.httpServer.port, config.server.httpServer.address, () => {
     console.log(`Server is listening at [${server.address().address}]:${server.address().port}`);
   });
 }
