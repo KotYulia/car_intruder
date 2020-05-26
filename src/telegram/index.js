@@ -7,10 +7,14 @@ const {
   },
 } = require('../config');
 const { mainMenu } = require('./menu');
-const { stage, createArticle } = require('./scenes');
+const { stage, createArticle, getNews, findByLocation } = require('./scenes');
 
 bot.use(session());
 bot.use(stage.middleware());
+
+bot.command('start', ({ reply }) => {
+  return reply(WELCOME_MESSAGE, mainMenu)
+});
 
 let article = {};
 
@@ -23,11 +27,13 @@ bot.hears(MAIN_BUTTONS.ACCIDENT_REPORT, (ctx) => {
   ctx.scene.enter(createArticle.name);
 });
 
-bot.command('start', ({ reply }) => {
-  return reply(WELCOME_MESSAGE, mainMenu)
+bot.hears(MAIN_BUTTONS.NEWS, ctx => {
+  ctx.scene.enter(getNews.name);
 });
 
-bot.hears('🔍 Новости', ctx => ctx.reply('Yay!'));
+bot.hears(MAIN_BUTTONS.FIND_WITNESSES, ctx => {
+  ctx.scene.enter(findByLocation.name);
+});
 
 bot.launch();
 

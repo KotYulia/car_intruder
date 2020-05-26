@@ -6,6 +6,6 @@ const telegramEvents = require('./telegramEvents');
 module.exports = {
   credentials,
   server,
-  localesRU,
   telegramEvents,
+  localesRU,
 };

@@ -8,6 +8,7 @@ const {
 const mainMenu = Markup
   .keyboard([
     [MAIN_BUTTONS.NEWS],
+    [MAIN_BUTTONS.FIND_WITNESSES],
     [MAIN_BUTTONS.VIOLATION_REPORT],
     [MAIN_BUTTONS.ACCIDENT_REPORT]
   ])

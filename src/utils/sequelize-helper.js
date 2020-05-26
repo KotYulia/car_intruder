@@ -1,7 +1,7 @@
-function toPoint({ longitude, latitude }) {
+function toPoint({ latitude, longitude }) {
   if (longitude == null && latitude == null) return undefined;
 
-  return `point(${longitude}, ${latitude})`;
+  return `${latitude}, ${longitude}`;
 }
 
 module.exports = {

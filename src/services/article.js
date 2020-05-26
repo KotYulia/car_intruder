@@ -18,6 +18,16 @@ const newArticle = async(articleObj) => {
   }
 };
 
+const listArticles = async() => {
+  try {
+    const articles = await Article.findAll();
+    return articles;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   newArticle,
+  listArticles,
 };
