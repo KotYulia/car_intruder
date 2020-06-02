@@ -109,4 +109,4 @@ dist
 .idea/
 data/
 
-public/
+src/server/public/*

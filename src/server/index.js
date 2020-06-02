@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 require('express-async-errors'); // Catch async errors by error handler
 const helmet = require('helmet'); // Secure your Express apps by setting various HTTP headers
 const cors = require('cors'); // CORS support
@@ -15,6 +16,8 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const corsOptions = {
   origin: '*',

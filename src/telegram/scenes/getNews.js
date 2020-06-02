@@ -22,7 +22,8 @@ const scene = new WizardScene(
       for (let i = 0; i < counter; ++i) {
         await ctx.replyWithHTML(`<strong>${articles[i].title}</strong>`);
         if (articles[i].image) {
-          await ctx.replyWithPhoto({ source: articles[i].image });
+          const url = articles[i].image;
+          await ctx.replyWithPhoto({ url: url });
         }
         if (articles[i].description) {
           await ctx.reply(articles[i].description);

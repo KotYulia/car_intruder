@@ -8,6 +8,7 @@ const {
   telegramEvents: {
     SCENES: { CREATE_ARTICLE: name },
   },
+  server,
 } = require('../../config');
 const articleObj = require('../index');
 
@@ -45,8 +46,9 @@ const scene = new WizardScene(
     if (ctx.message && ctx.message.photo) {
       const img = ctx.message.photo[ctx.message.photo.length - 1].file_id;
       const imageLink = await getFileLink(img);
-      const imageLocalLink = `${process.cwd()}/src/public/uploads/${img}.jpg`;
-      article.image = imageLocalLink;
+      const imageLocalLink = `${process.cwd()}/src/server/public/uploads/${img}.jpg`;
+      // article.image = `http://${server.httpServer.address}:${server.httpServer.port}/uploads/${img}.jpg`;
+      article.image = imageLink;
       const file = await fs.createWriteStream(imageLocalLink);
       await https.get(imageLink, (response) => {
         response.on('data', (chunk) => {
