@@ -42,8 +42,7 @@ module.exports = {
     const { title, author, category, longitude, latitude, description } = req.body;
     let imagePath;
     if (req.file) {
-      imagePath = req.file.path;
-      imagePath.replace(/src\/server\/public\//, '');
+      imagePath = req.protocol + '://' + req.get('host') + '/' + (req.file.path).replace(/src\/server\/public\//, '');
     }
     return Article.findByPk(req.params.articleId)
       .then((article) => {
