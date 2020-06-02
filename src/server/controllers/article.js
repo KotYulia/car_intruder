@@ -7,7 +7,7 @@ module.exports = {
     const { title, author, category, longitude, latitude, description } = req.body;
     let imagePath;
     if (req.file) {
-      imagePath = req.file.path;
+      imagePath = req.protocol + '://' + req.get('host') + '/' + (req.file.path).replace(/src\/server\/public\//, '');
     }
     return Article.create({
       title,
@@ -32,11 +32,18 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
+  singleArticle(req, res) {
+    return Article.findByPk(req.params.articleId)
+      .then((article) => res.status(200).send({ article }))
+      .catch((error) => res.status(400).send(error));
+  },
+
   update(req, res) {
     const { title, author, category, longitude, latitude, description } = req.body;
     let imagePath;
     if (req.file) {
       imagePath = req.file.path;
+      imagePath.replace(/src\/server\/public\//, '');
     }
     return Article.findByPk(req.params.articleId)
       .then((article) => {
