@@ -32,6 +32,12 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
+  listLocations(req, res) {
+    return Article.findAll({attributes: ['location']})
+      .then((locations) => res.status(200).send({ locations }))
+      .catch((error) => res.status(400).send(error));
+  },
+
   singleArticle(req, res) {
     return Article.findByPk(req.params.articleId)
       .then((article) => res.status(200).send({ article }))
