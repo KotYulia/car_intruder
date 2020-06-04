@@ -19,6 +19,7 @@ const upload = multer({ storage: storage });
 
 router.get('/', articleController.list);
 router.get('/articles/:articleId', articleController.singleArticle);
+router.get('/map', articleController.listLocations);
 router.post('/articles', upload.single('photo'), articleController.create);
 router.post('/articles/:articleId', upload.single('photo'), articleController.update);
 router.delete('/articles/:articleId', articleController.delete);
